@@ -186,7 +186,6 @@ function getBSide() {
     return bSide;
 }
 
-
 function init() {
     setCurrentTime();
     animate();
