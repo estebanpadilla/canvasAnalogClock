@@ -1,2 +1,4 @@
 # canvasClock
-Small javascript clock on the html5 canvas.
+A small javascript clock using basic shapes on the html5 canvas.
+
+
