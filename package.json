@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "lite-server"
+    "start": "browser-sync start --s --f *.js, *.html, *.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.2.2"
+    "browser-sync": "^2.18.6"
   }
 }

@@ -2,17 +2,7 @@ window.addEventListener('load', init, false);
 
 function init() {
 
-    var canvas = undefined;
-    var ctx = undefined;
-    var secondsArrow = undefined;
-    var minutesArrow = undefined;
-    var hoursArrow = undefined;
-    var clockBackground = undefined;
-    var clockCenter = undefined;
-    var point3 = undefined;
-    var point6 = undefined;
-    var point9 = undefined;
-    var point12 = undefined;
+    var canvas, context, secondsArrow, minutesArrow, hoursArrow, clockBackground, clockCenter, point3, point6, point9, point12;
 
     var stats = new Stats();
     document.body.appendChild(stats.dom);
@@ -30,89 +20,30 @@ function init() {
     var hours = 0;
 
     canvas = createCanvas(xpos, ypos, width, height);
-    ctx = canvas.getContext('2d');
+    context = canvas.getContext('2d');
 
-    secondsArrow = new Arrow();
-    secondsArrow.length = 50;
-    secondsArrow.lineWidth = 3;
-    secondsArrow.x = clockXpos;
-    secondsArrow.y = clockYpos;
-    secondsArrow.color = '#2b0d3b';
-
-    minutesArrow = new Arrow();
-    minutesArrow.length = 50;
-    minutesArrow.lineWidth = 5;
-    minutesArrow.x = clockXpos;
-    minutesArrow.y = clockYpos;
-    minutesArrow.color = '#2b0d3b';
-
-    hoursArrow = new Arrow();
-    hoursArrow.length = 50;
-    hoursArrow.lineWidth = 10;
-    hoursArrow.x = clockXpos;
-    hoursArrow.y = clockYpos;
-    hoursArrow.color = '#2b0d3b';
-
-    clockBackground = new Circle();
-    clockBackground.radius = 75;
-    clockBackground.lineWidth = 5;
-    clockBackground.x = clockXpos;
-    clockBackground.y = clockYpos;
-    clockBackground.color = '#ffdd17';
-    clockBackground.strokeStyle = '#2b0d3b';
-
-    clockCenter = new Circle();
-    clockCenter.radius = 10;
-    clockCenter.lineWidth = 5;
-    clockCenter.x = clockXpos;
-    clockCenter.y = clockYpos;
-    clockCenter.color = '#2b0d3b';
-    clockCenter.strokeStyle = '#2b0d3b';
-
-    point12 = new Circle();
-    point12.radius = 1;
-    point12.lineWidth = 5;
-    point12.x = clockXpos;
-    point12.y = clockYpos - 61;
-    point12.color = '#2b0d3b';
-    point12.strokeStyle = '#2b0d3b';
-
-    point3 = new Circle();
-    point3.radius = 1;
-    point3.lineWidth = 5;
-    point3.x = clockXpos + 61;
-    point3.y = clockYpos;
-    point3.color = '#2b0d3b';
-    point3.strokeStyle = '#2b0d3b';
-
-    point6 = new Circle();
-    point6.radius = 1;
-    point6.lineWidth = 5;
-    point6.x = clockXpos;
-    point6.y = clockYpos + 61;
-    point6.color = '#2b0d3b';
-    point6.strokeStyle = '#2b0d3b';
-
-    point9 = new Circle();
-    point9.radius = 1;
-    point9.lineWidth = 5;
-    point9.x = clockXpos - 61;
-    point9.y = clockYpos;
-    point9.color = '#2b0d3b';
-    point9.strokeStyle = '#2b0d3b';
+    secondsArrow = new Arrow(clockXpos, clockYpos, 50, 3, 0, '#2b0d3b');
+    minutesArrow = new Arrow(clockXpos, clockYpos, 50, 5, '#2b0d3b');
+    hoursArrow = new Arrow(clockXpos, clockYpos, 50, 10, 0, '#2b0d3b');
+    clockBackground = new Circle(clockXpos, clockYpos, 75, 5, '#ffdd17', '#2b0d3b');
+    clockCenter = new Circle(clockXpos, clockYpos, 10, 5, '#2b0d3b', '#2b0d3b');
+    point12 = new Circle(clockXpos, clockYpos - 61, 1, 5, '#2b0d3b', '#2b0d3b');
+    point3 = new Circle(clockXpos + 61, clockYpos, 1, 5, '#2b0d3b', '#2b0d3b');
+    point6 = new Circle(clockXpos, clockYpos + 61, 1, 6, '#2b0d3b', '#2b0d3b');
+    point9 = new Circle(clockXpos - 61, clockYpos, 1, 5, '#2b0d3b', '#2b0d3b');
 
     function animate() {
         stats.begin();
 
-        clockBackground.draw(ctx);
-        point12.draw(ctx);
-        point3.draw(ctx);
-        point6.draw(ctx);
-        point9.draw(ctx);
-        hoursArrow.draw(ctx);
-        minutesArrow.draw(ctx);
-        secondsArrow.draw(ctx);
-        clockCenter.draw(ctx);
+        clockBackground.draw(context);
+        point12.draw(context);
+        point3.draw(context);
+        point6.draw(context);
+        point9.draw(context);
+        hoursArrow.draw(context);
+        minutesArrow.draw(context);
+        secondsArrow.draw(context);
+        clockCenter.draw(context);
 
         stats.end();
         requestAnimationFrame(animate);
@@ -167,13 +98,13 @@ function createCanvas(xpos, ypos, width, height) {
     return canvas;
 }
 
-function Circle() {
-    this.radius = 100;
-    this.x = 0;
-    this.y = 0;
-    this.lineWidth = 3;
-    this.color = 'none';
-    this.strokeStyle = 'none';
+function Circle(x, y, radius, lineWidth, color, strokeStyle) {
+    this.radius = radius;
+    this.x = x;
+    this.y = y;
+    this.lineWidth = lineWidth;
+    this.color = color;
+    this.strokeStyle = strokeStyle;
 }
 
 Circle.prototype.draw = function draw(context) {
@@ -187,13 +118,13 @@ Circle.prototype.draw = function draw(context) {
     context.stroke();
 };
 
-function Arrow() {
-    this.length = 0;
-    this.x = 0;
-    this.y = 0;
-    this.rotation = 0;
-    this.lineWidth = 0;
-    this.color = 'white';
+function Arrow(x, y, length, lineWidth, rotation, color) {
+    this.x = x;
+    this.y = y;
+    this.length = length;
+    this.rotation = rotation;
+    this.lineWidth = lineWidth;
+    this.color = color;
 }
 
 Arrow.prototype.draw = function (context) {
